@@ -38,7 +38,6 @@ class GaransiController extends Controller
         foreach($garansi as $list){
             $no ++;
             $row = array();
-            $row[] = "<input type='checkbox' name='id[]'' value='".$list->id_garansi."'>";
             $row[] = $no;
             $row[] = $list->id_garansi;
             $row[] = $list->tanggal;
@@ -68,8 +67,7 @@ class GaransiController extends Controller
     {
 
         $servisan = Servisan::leftJoin('merk', 'merk.id_merk', '=', 'servisan.id_merk')
-        ->leftJoin('status', 'status.id_status', '=', 'servisan.id_status')
-        ->orderBy('servisan.id_servisan', 'desc')->get();
+        ->where('id_status', '4')->orderBy('servisan.id_servisan', 'desc')->get();
         $merk = Merk::all();
         $status = Status::all();
         return view('garansi.create', compact('servisan', 'merk', 'status'));

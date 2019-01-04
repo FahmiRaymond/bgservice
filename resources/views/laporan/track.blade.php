@@ -108,8 +108,7 @@ Tambah Data Laporan
                         <div class="form-group">
                             <label for="biaya" class="control-label col-sm-3">Biaya :</label>
                             <div class="col-sm-8">
-                                <input type="number" class="form-control" id="biaya" name="biaya" onkeyup="total();" required value="{{ $garansi->biaya }}" 
-                                    required oninvalid="this.setCustomValidity('Data tidak boleh kosong')" oninput="setCustomValidity('')">
+                                <input type="number" class="form-control" id="biaya" name="biaya" onkeyup="total();"  value="{{ $garansi->biaya }}">
                                 <span class="help-block with-errors"></span>
                             </div>
                         </div>

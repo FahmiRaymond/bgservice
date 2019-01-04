@@ -63,24 +63,6 @@
         <div class="overlay"></div>
     </header>
 
-    <!-- Services -->
-    {{-- <section class="content-section bg-primary text-white text-center" id="services">
-        <div class="container">
-            <div class="content-section-heading">
-                <h2 class="mb-5">Status Perbaikan HP</h2>
-            </div>
-            <form action="">
-                <div class="col-md-12">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="masukan kode nota">
-                        <span class="input-group-btn">
-                            <button class="btn btn-warning" type="button">cari</button>
-                        </span>
-                    </div>
-                </div>
-            </form>
-    </section> --}}
-
     <!-- Map -->
     <section id="contact" class="map">
         <!--      <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>-->
@@ -100,7 +82,7 @@
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
-        <i class="fas fa-angle-up"></i>
+        <i class="fa fa-angle-up"></i>
     </a>
 
     <!-- Bootstrap core JavaScript -->

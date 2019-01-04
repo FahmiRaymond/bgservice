@@ -9,6 +9,9 @@ use App\Merk;
 use App\Status;
 use App\Sparepart;
 use App\Laporan;
+use PDF;
+use Dompdf\Dompdf;
+use Redirect;
 
 class LaporanController extends Controller
 {
@@ -19,40 +22,55 @@ class LaporanController extends Controller
      */
     public function index()
     {
+        $month = date('m');
+        $year = date('Y');
         $merk = Merk::all();
         $status = Status::all();
-        $laporan = Laporan::all();
-        return view('laporan.index', compact('merk', 'status'));
+        return view('laporan.index', compact('merk', 'status', 'month', 'year'));
     }
 
-    public function listData()
-    {
+    public function getData($year, $month){
+        $year = $year;
+        $month = $month;
+        
         $laporan = Laporan::leftJoin('merk', 'merk.id_merk', '=', 'laporan.id_merk')
-        ->leftJoin('status', 'status.id_status', '=', 'laporan.id_status')
-        ->orderBy('laporan.id_laporan', 'desc')->get();
+        ->whereYear('created_at', $year)->whereMonth('created_at', $month)->get();
         $no = 0;
         $data = array();
-        foreach($laporan as $list){
-            $no ++;
-            $row = array();
-            $row[] = $no;
-            $row[] = $list->id_laporan;
-            $row[] = $list->tanggal;
-            $row[] = $list->pemilik;
-            $row[] = "<i>".$list->nama_merk." ".$list->model."</i>";
-            $row[] = $list->kerusakan;
-            $row[] = "Rp. ".format_uang($list->biaya);
-            $row[] = "Rp. ".format_uang($list->harga);
-            $row[] = "Rp. ".format_uang($list->laba);
-            $row[] = "<div class='btn-group'>
-                    <a onclick='showForm(".$list->id_laporan.")' class='btn btn-default btn-sm'><i class='fa fa-eye'></i></a>
-                    <a onclick='editForm(".$list->id_laporan.")' class='btn btn-primary btn-sm'><i class='fa fa-pencil'></i></a>
-                    <a onclick='deleteData(".$list->id_laporan.")' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></a></div>";
-            $data[] = $row;
-        }
-        
+        $total_pendapatan = 0;
+        $pendapatan = Laporan::whereYear('created_at', $year)->whereMonth('created_at', $month)->sum('laba');
+        $total_pendapatan += $pendapatan;
+            foreach($laporan as $list){
+                $no++;
+                $row = array();
+                $row[] = $no;
+                $row[] = $list->tanggal;
+                $row[] = $list->pemilik;
+                $row[] = $list->nama_merk." ".$list->model;
+                $row[] = $list->kerusakan;
+                $row[] = "Rp. ".format_uang($list->biaya);
+                $row[] = "Rp. ".format_uang($list->harga);
+                $row[] = "Rp. ".format_uang($list->laba);
+                $data[] = $row;
+            }
+        $data[] = array("","","","","","","Margin :","Rp. ".format_uang($total_pendapatan));
+
+        return $data;
+    }
+
+    public function listData($year, $month)
+    {
+        $data = $this->getData($year, $month);
+
         $output = array("data" => $data);
         return response()->json($output);
+    }
+
+    public function refresh(Request $request)
+    {
+        $year = $request['year'];
+        $month = $request['month'];
+        return view('laporan.index', compact('month', 'year')); 
     }
 
     /**
@@ -60,6 +78,18 @@ class LaporanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function exportPDF($year, $month){
+        $year = $year;
+        $month = $month;
+        $data = $this->getData($year, $month);
+
+        $pdf = PDF::loadView('laporan.pdf', compact('year', 'month', 'data'));
+        $pdf->setPaper('a4', 'potrait');
+
+        return $pdf->stream();
+    }
+
     public function create($id)
     {
         $servisan = Servisan::all();

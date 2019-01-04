@@ -41,6 +41,9 @@ class MerkTableSeeder extends Seeder
             ],
             [
                 'nama_merk' => 'Nokia'
+            ],
+            [
+                'nama_merk' => 'HP'
             ]
         ));
     }

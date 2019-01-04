@@ -28,7 +28,6 @@ Daftar Servisan
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th width="20"><input type="checkbox" value="1" id="select-all"></th>
                             <th width="2">No</th>
                             <th width="5">ID</th>
                             <th>Tanggal</th>
@@ -78,11 +77,7 @@ Daftar Servisan
                 'searchable': false,
                 'orderable': false
             }],
-            'order': [1, 'asc']
-        });
-
-        $('#select-all').click(function () {
-            $('input[type="checkbox"]').prop('checked', this.checked);
+            'order': [2, 'desc']
         });
 
         $('#modal-form form').validator().on('submit', function (e) {

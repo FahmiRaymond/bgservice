@@ -35,7 +35,6 @@ class ServisanController extends Controller
         foreach($servisan as $list){
             $no ++;
             $row = array();
-            $row[] = "<input type='checkbox' name='id[]'' value='".$list->id_servisan."'>";
             $row[] = $no;
             $row[] = $list->id_servisan;
             $row[] = $list->tanggal;

@@ -17,7 +17,6 @@
                         <th>telepon</th>
                         <th>Model</th>
                         <th>Kerusakan</th>
-                        <th>Status</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
@@ -29,7 +28,6 @@
                             <th>{{ $list->telepon }}</th>
                             <th>{{ $list->nama_merk }} {{ $list->model }}</th>
                             <th>{{ $list->kerusakan }}</th>
-                            <th>{{ $list->nama_status }}</th>
                             <th><a onclick="selectItem({{ $list->id_servisan }})" class="btn btn-primary">
                                     <i class="fa fa-check-circle"></i>Pilih</a></th>
                         </tr>

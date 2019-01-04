@@ -16,7 +16,6 @@ class BuatTabelMerk extends Migration
         Schema::create('merk', function(Blueprint $table){
             $table->increments('id_merk');
             $table->string('nama_merk', 20);
-            $table->timestamps();
         });
     }
 

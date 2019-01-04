@@ -39,7 +39,9 @@ Route::group(['middleware' => 'auth'], function() {
     
 
     Route::get('/laporan', 'LaporanController@index')->name('laporan.index');
-    Route::get('/laporan/data', 'LaporanController@listData')->name('laporan.data');
+    Route::get('laporan/data/{month}/{year}', 'LaporanController@listData')->name('laporan.data'); 
+    Route::post('/laporan', 'LaporanController@refresh')->name('laporan.refresh');
+    Route::get('laporan/pdf/{month}/{year}', 'LaporanController@exportPDF');
     Route::get('/laporan/{servisan}/create', 'LaporanController@create')->name('laporan.create');
     Route::post('/laporan/{servisan}/create', 'LaporanController@store')->name('laporan.store');
     Route::get('/laporan/{servisan}/track', 'LaporanController@track')->name('laporan.track');
